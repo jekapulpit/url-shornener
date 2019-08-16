@@ -1,27 +1,24 @@
 import React from 'react';
 import { hot } from 'react-hot-loader/root';
 import Button from '@material-ui/core/Button';
-import TextField from '@material-ui/core/TextField';
 import '../stylesheets/components/form.scss'
 
-class Form extends React.Component {
-    render() {
-        return (
-            <form className="link-form">
-                <TextField
-                    label="your link"
-                    type="text"
-                    name="original_link"
-                    margin="normal"
-                    variant="outlined"
-                    style={{width: '100%', margin: '10px'}}
-                />
-                <Button variant="contained" color="primary">
-                    Short
-                </Button>
-            </form>
-        )
-    }
-}
+const Form = props => {
+    let formData = {};
+    return (
+        <form className="link-form">
+
+            <input
+                ref={input => formData.originalLink = input}
+                type="text"
+                name="original_link"
+                style={{width: '100%', margin: '10px', height: '50px'}}
+            />
+            <Button onClick={() => {props.handleShortLink(formData.originalLink.value)}} variant="contained" color="primary">
+                Short
+            </Button>
+        </form>
+    )
+};
 
 export default hot(Form);

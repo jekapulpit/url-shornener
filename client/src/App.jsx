@@ -1,10 +1,10 @@
 import React from 'react';
 import { hot } from 'react-hot-loader/root';
-import Form from "./components/Form";
+import MainWindow from "./components/MainWindow";
 
 function App() {
   return (
-          <Form />
+          <MainWindow />
   );
 }
 
