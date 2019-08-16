@@ -9,7 +9,7 @@ class MainWindow extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            generatedLinks: []
+            generatedLink: null
         }
     }
 
@@ -26,19 +26,17 @@ class MainWindow extends React.Component {
             .then((response) => { return response.json() })
             .then((data) => {
                 this.setState({
-                    generatedLinks: this.state.generatedLinks.concat(data.link)
+                    generatedLink: data.link
                 })
             })
     };
 
     render() {
-        let links = this.state.generatedLinks.map((link) => {
-            return <ShortLink key={link} link={link}/>
-        });
+        let generatedLink = this.state.generatedLink ? <ShortLink key={this.state.generatedLink} link={this.state.generatedLink}/> : null;
         return (
             <div className='main-window'>
                 <Form handleShortLink={this.handleShortLink}/>
-                {links}
+                {generatedLink}
             </div>
         )
     }

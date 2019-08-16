@@ -11,8 +11,9 @@ const ShortLink = props => {
             disabled
             type="text"
             margin="normal"
+            fullWidth
             variant="outlined"
-            style={{width: '100%', margin: '10px'}}
+            style={{ margin: '10px'}}
         />
     )
 };
