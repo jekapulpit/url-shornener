@@ -1,0 +1,26 @@
+.idea
+.idea/*
+/log
+/config/application.yml
+/config/master.key
+/storage
+/logfile
+/vendor
+/bundle
+/db/*.sqlite3
+/db/*.sqlite3-journal
+# Ignore all logfiles and tempfiles.
+/log/*
+/tmp/*
+/client/node_modules
+/client/yarn-error.log
+/tests
+.byebug_history
+/storage/*
+/.env
+/public/packs
+/public/packs-test
+/node_modules
+/yarn-error.log
+/client/yarn-debug.log*
+/client/.yarn-integrity
