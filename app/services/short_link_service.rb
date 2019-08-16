@@ -9,7 +9,8 @@ class ShortLinkService
 
   def call
     generate_link_instance while link_instance.invalid?
-    link_instance.save ? link_instance : link_instance.errors
+    link_instance.save
+    link_instance
   end
 
   def generate_link_instance
