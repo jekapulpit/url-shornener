@@ -26,7 +26,7 @@ class MainWindow extends React.Component {
             .then((response) => { return response.json() })
             .then((data) => {
                 this.setState({
-                    generatedLink: data.link
+                    generatedLink: data.errors.original_link ? 'invalid link' : data.link
                 })
             })
     };

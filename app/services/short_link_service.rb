@@ -8,12 +8,14 @@ class ShortLinkService
   end
 
   def call
-    generate_link_instance while link_instance.invalid?
+    update_link_hash while collision?
     link_instance.save
     link_instance
   end
 
-  def generate_link_instance
+  private
+
+  def update_link_hash
     link_instance.link_hash = generate_short_hash
   end
 
@@ -23,5 +25,9 @@ class ShortLinkService
 
   def find_or_create_link
     Link.find_by(original_link: original_link) || Link.new(original_link: original_link)
+  end
+
+  def collision?
+    link_instance.invalid? && !link_instance.errors[:original_link].any?
   end
 end
