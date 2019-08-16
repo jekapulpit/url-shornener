@@ -4,7 +4,7 @@ class ShortLinkService
   def initialize(original_link, hash_algorithm = Digest::SHA256.new)
     @original_link = original_link
     @hash_algorithm = hash_algorithm
-    @link_instance = (Link.find_by(original_link: original_link) || Link.new(original_link: original_link))
+    @link_instance = find_or_create_link
   end
 
   def call
@@ -18,5 +18,9 @@ class ShortLinkService
 
   def generate_short_hash
     (hash_algorithm.hexdigest original_link).slice(0,7)
+  end
+
+  def find_or_create_link
+    Link.find_by(original_link: original_link) || Link.new(original_link: original_link)
   end
 end
