@@ -6,4 +6,9 @@ class LinksController < ApplicationController
         errors: link.errors
     }
   end
+
+  def redirect
+    link = Link.find(params[:link_hash])
+    redirect_to link.original_link
+  end
 end
