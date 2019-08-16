@@ -9,6 +9,7 @@ class LinksController < ApplicationController
 
   def redirect
     link = Link.find(params[:link_hash])
+    ahoy.track "class", title: 'Some awesome information'
     redirect_to link.original_link
   end
 end

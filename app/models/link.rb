@@ -14,6 +14,7 @@ class HttpUrlValidator < ActiveModel::EachValidator
 end
 
 class Link < ApplicationRecord
+  visitable
   self.primary_key = 'link_hash'
   validates :link_hash, uniqueness: true, presence: true
   validates :original_link, http_url: true
