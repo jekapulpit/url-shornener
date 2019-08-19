@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class ShortLinkService
   attr_reader :original_link, :hash_algorithm, :link_instance
 
@@ -20,7 +22,7 @@ class ShortLinkService
   end
 
   def generate_short_hash
-    (hash_algorithm.hexdigest original_link.chars.shuffle.join).slice(0,7)
+    (hash_algorithm.hexdigest original_link.chars.shuffle.join).slice(0, 7)
   end
 
   def find_or_create_link
@@ -28,6 +30,6 @@ class ShortLinkService
   end
 
   def collision?
-    link_instance.invalid? && !link_instance.errors[:original_link].any?
+    link_instance.invalid? && link_instance.errors[:original_link].none?
   end
 end
