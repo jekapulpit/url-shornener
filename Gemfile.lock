@@ -237,6 +237,7 @@ DEPENDENCIES
   factory_girl_rails
   faker
   figaro
+  geocoder
   jbuilder (~> 2.5)
   listen (>= 3.0.5, < 3.2)
   pg

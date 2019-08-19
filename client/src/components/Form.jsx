@@ -14,7 +14,7 @@ const Form = props => {
                 style={{width: '100%', margin: '10px', height: '50px', fontSize: '20px', paddingLeft: '20px'}}
             />
             <Button onClick={() => {props.handleShortLink(formData.originalLink.value)}} variant="contained" color="primary">
-                Short
+                Shorten
             </Button>
         </form>
     )

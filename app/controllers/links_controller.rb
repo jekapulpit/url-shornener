@@ -13,6 +13,7 @@ class LinksController < ApplicationController
   def redirect
     link = Link.find(params[:link_hash])
     ahoy.track('visit', title: 'redirection event', link_hash: link.link_hash)
+    Ahoy::GeocodeJob.perform_now(link.visits.last.visit)
     redirect_to link.original_link
   end
 
