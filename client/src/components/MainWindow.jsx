@@ -32,11 +32,14 @@ class MainWindow extends React.Component {
     };
 
     render() {
-        let generatedLink = this.state.generatedLink ? <ShortLink key={this.state.generatedLink} link={this.state.generatedLink}/> : null;
+        let generatedLink = this.state.generatedLink ?
+            <ShortLink key={this.state.generatedLink} link={this.state.generatedLink}/>
+        : null;
         return (
             <div className='main-window'>
                 <Form handleShortLink={this.handleShortLink}/>
                 {generatedLink}
+                <a style={{textAlign: 'center'}} href="/stats">statistics</a>
             </div>
         )
     }

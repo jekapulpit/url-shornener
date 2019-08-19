@@ -33,6 +33,7 @@ class Statistics extends React.Component {
 
         return (
             <div className='stats-window'>
+                <a style={{textAlign: 'center', margin: '10px'}}  href="/">back to shortener</a>
                 {links}
             </div>
         )

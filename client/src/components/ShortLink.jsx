@@ -5,16 +5,19 @@ import '../stylesheets/components/form.scss'
 
 const ShortLink = props => {
     return (
-        <TextField
-            className="link-form"
-            defaultValue={props.link}
-            disabled
-            type="text"
-            margin="normal"
-            fullWidth
-            variant="outlined"
-            style={{ margin: '10px'}}
-        />
+        <React.Fragment>
+            <p style={{textAlign: 'center'}}>that's your short link: </p>
+            <TextField
+                className="link-form"
+                defaultValue={props.link}
+                disabled
+                type="text"
+                margin="normal"
+                fullWidth
+                variant="outlined"
+                style={{ margin: '10px'}}
+            />
+        </React.Fragment>
     )
 };
 
