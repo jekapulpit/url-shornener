@@ -63,6 +63,7 @@ ActiveRecord::Schema.define(version: 2019_08_19_130201) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["link_hash"], name: "index_links_on_link_hash"
+    t.index ["original_link"], name: "index_links_on_original_link"
   end
 
 end
