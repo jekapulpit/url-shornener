@@ -16,5 +16,9 @@ class LinksController < ApplicationController
     redirect_to link.original_link
   end
 
-  def index; end
+  def index
+    render json: {
+        links: Link.all.map(&:with_visit_stats)
+    }
+  end
 end
