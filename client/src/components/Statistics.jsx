@@ -1,6 +1,6 @@
 import React from 'react';
 import { hot } from 'react-hot-loader/root';
-import '../stylesheets/components/main_window.scss'
+import '../stylesheets/components/stats_window.scss'
 import {API_ROOT} from "../constants";
 
 class Statistics extends React.Component {
@@ -27,7 +27,7 @@ class Statistics extends React.Component {
 
     render() {
         let links = this.state.links.map((link) => {
-           return <div>
+           return <div className='link-stats' key={link.link_hash}>
                <p>original url: <a href={link.original_link}>{link.original_link}</a></p>
                <p>short url: <a href={`http://localhost:3001/${link.link_hash}`}>http://localhost:3001/{link.link_hash}</a></p>
                <p>total clicks: {link.visits_number}</p>
@@ -36,7 +36,7 @@ class Statistics extends React.Component {
         });
 
         return (
-            <div className='main-window'>
+            <div className='stats-window'>
                 {links}
             </div>
         )
