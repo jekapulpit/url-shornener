@@ -13,4 +13,8 @@ class LinksController < ApplicationController
     ahoy.track("visit", {title: 'redirection event', link_hash: link.link_hash})
     redirect_to link.original_link
   end
+
+  def index
+
+  end
 end

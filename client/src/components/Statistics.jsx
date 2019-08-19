@@ -6,7 +6,15 @@ import {API_ROOT} from "../constants";
 class Statistics extends React.Component {
     constructor(props) {
         super(props);
+        this.state = {
+            links: []
+        }
     }
+
+    componentDidMount() {
+
+    }
+
     render() {
         return (
             <div className='main-window'>
