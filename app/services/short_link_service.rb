@@ -22,7 +22,7 @@ class ShortLinkService
   end
 
   def generate_short_hash
-    (hash_algorithm.hexdigest original_link.chars.shuffle.join).slice(0, 7)
+    (hash_algorithm.hexdigest original_link.chars.shuffle.join).slice(0, 6)
   end
 
   def find_or_create_link
