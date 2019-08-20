@@ -14,7 +14,7 @@ class LinksController < ApplicationController
     link = Link.find_by(link_hash: params[:link_hash])
     if link
       ahoy.track('visit', title: 'redirection event', link_hash: link.link_hash)
-      Ahoy::GeocodeJob.perform_now(link.visits.last.visit) if link.visits.last
+      EventWorker.perform_async(params[:link_hash])
       redirect_to link.original_link
     else
       redirect_to "http://#{ENV['client_root']}/404"
