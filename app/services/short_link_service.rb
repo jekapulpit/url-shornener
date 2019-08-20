@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class ShortLinkService
+  LINK_HASH_SIZE = 7
+
   def initialize(original_link, hash_algorithm = Digest::SHA256.new)
     @original_link = original_link
     @hash_algorithm = hash_algorithm
@@ -20,7 +22,7 @@ class ShortLinkService
   end
 
   def generate_short_hash
-    (@hash_algorithm.hexdigest @original_link.chars.shuffle.join).slice(0, 6)
+    (@hash_algorithm.hexdigest @original_link.chars.shuffle.join).slice(0, LINK_HASH_SIZE - 1)
   end
 
   def collision?
