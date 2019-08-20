@@ -19,12 +19,4 @@ class Link < ApplicationRecord
         .where(name: 'visit', properties: { :title => 'redirection event', :link_hash => link_hash })
         .order(:ip)
   end
-
-  def with_visit_stats
-    attributes.merge(
-      visits_number: visits.count,
-      creations_number: creations.count,
-      unique_visits_number: unique_visits.count,
-    )
-  end
 end

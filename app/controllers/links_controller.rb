@@ -2,9 +2,7 @@
 
 class LinksController < ApplicationController
   def index
-    render json: {
-        links: Link.all.map(&:with_visit_stats)
-    }
+    render json: Link.all, each_serializer: LinkSerializer
   end
 
   def create

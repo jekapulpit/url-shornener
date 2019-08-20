@@ -21,7 +21,7 @@ class Statistics extends React.Component {
             .then((response) => { return response.json() })
             .then((data) => {
                 this.setState({
-                    links: data.links
+                    links: data
                 })
             })
     }
