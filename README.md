@@ -1,5 +1,5 @@
 # url-shortener
-##Startup instructions 
+## Startup instructions 
 Frontend: 
 ```
 npm start
@@ -12,7 +12,7 @@ api_root='localhost:3001' client_root='localhost:3000' rails s -p 3001
 sidekiq -q Events
 ```
 
-##Retrospective
+## Retrospective
 What went well?
 
 * I think I did a good job with link generating and avoiding collisions
