@@ -3,7 +3,7 @@
 class HttpUrlValidator < ActiveModel::EachValidator
   def self.compliant?(value)
     uri = URI.parse(value)
-    uri.is_a?(URI::HTTP) && !uri.host.nil?
+    uri.is_a?(URI::HTTP) && uri.host.presence
   rescue URI::InvalidURIError
     false
   end
