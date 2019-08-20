@@ -8,14 +8,14 @@ class ShortLinkService
   end
 
   def call
-    update_link_hash while collision?
+    change_link_hash while collision?
     @link_instance.save
     @link_instance
   end
 
   private
 
-  def update_link_hash
+  def change_link_hash
     @link_instance.link_hash = generate_short_hash
   end
 
