@@ -6,17 +6,17 @@ class Link < ApplicationRecord
   validates :original_link, http_url: true
 
   def visits
-    Ahoy::Event.where(properties: { 'title' => 'redirection event', 'link_hash' => link_hash })
+    Ahoy::Event.where(properties: { :title => 'redirection event', :link_hash => link_hash })
   end
 
   def creations
-    Ahoy::Event.where(properties: { 'title' => 'link creation event', 'link_hash' => link_hash })
+    Ahoy::Event.where(properties: { :title => 'link creation event', :link_hash => link_hash })
   end
 
   def unique_visits
     Ahoy::Event.joins(:visit)
         .select('DISTINCT ahoy_visits.ip')
-        .where(name: 'visit', properties: { 'title' => 'redirection event', 'link_hash' => link_hash })
+        .where(name: 'visit', properties: { :title => 'redirection event', :link_hash => link_hash })
         .order(:ip)
   end
 
