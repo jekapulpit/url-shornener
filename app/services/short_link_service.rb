@@ -10,12 +10,14 @@ class ShortLinkService
   end
 
   def call
-    loop do
-      set_link_hash
-      break unless collision?
-      shuffle_original_link
+    if @link_instance.link_hash.nil?
+      loop do
+        set_link_hash
+        break unless collision?
+        shuffle_original_link
+      end
+      @link_instance.save
     end
-    @link_instance.save
     @link_instance
   end
 
