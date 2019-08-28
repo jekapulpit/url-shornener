@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_08_20_132131) do
+ActiveRecord::Schema.define(version: 2019_08_28_145717) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -50,6 +50,8 @@ ActiveRecord::Schema.define(version: 2019_08_20_132131) do
     t.string "os_version"
     t.string "platform"
     t.datetime "started_at"
+    t.string "link_hash"
+    t.index ["link_hash"], name: "index_ahoy_visits_on_link_hash"
     t.index ["visit_token"], name: "index_ahoy_visits_on_visit_token", unique: true
   end
 

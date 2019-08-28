@@ -4,19 +4,9 @@ class Link < ApplicationRecord
   self.primary_key = 'link_hash'
   validates :link_hash, uniqueness: true, presence: true
   validates :original_link, http_url: true
-
-  def visits
-    Ahoy::Event.where(properties: { :title => 'redirection event', :link_hash => link_hash })
-  end
-
-  def creations
-    Ahoy::Event.where(properties: { :title => 'link creation event', :link_hash => link_hash })
-  end
+  has_many :visits, foreign_key: :link_hash, class_name: 'Ahoy::Visit'
 
   def unique_visits
-    Ahoy::Event.joins(:visit)
-        .select('DISTINCT ahoy_visits.ip')
-        .where(name: 'visit', properties: { :title => 'redirection event', :link_hash => link_hash })
-        .order(:ip)
+    visits.pluck(:ip).uniq
   end
 end
