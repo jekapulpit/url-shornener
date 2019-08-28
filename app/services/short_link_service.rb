@@ -10,19 +10,27 @@ class ShortLinkService
   end
 
   def call
-    change_link_hash while collision?
+    loop do
+      set_link_hash
+      break unless collision?
+      shuffle_original_link
+    end
     @link_instance.save
     @link_instance
   end
 
   private
 
-  def change_link_hash
+  def shuffle_original_link
+    @original_link = @original_link.chars.shuffle.join
+  end
+
+  def set_link_hash
     @link_instance.link_hash = generate_short_hash
   end
 
   def generate_short_hash
-    (@hash_algorithm.hexdigest @original_link.chars.shuffle.join).slice(0, LINK_HASH_SIZE - 1)
+    (@hash_algorithm.hexdigest @original_link).slice(0, LINK_HASH_SIZE - 1)
   end
 
   def collision?
