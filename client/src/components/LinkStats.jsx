@@ -8,7 +8,6 @@ const LinkStats = props => {
            <p>short url: <a href={`http://localhost:3001/${props.link.link_hash}`}>http://localhost:3001/{props.link.link_hash}</a></p>
            <p>total redirects: {props.link.visits_number}</p>
            <p>unique redirects: {props.link.unique_visits_number}</p>
-           <p>total creations: {props.link.creations_number}</p>
        </div>
    )
 };

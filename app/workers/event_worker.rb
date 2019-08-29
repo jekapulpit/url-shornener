@@ -4,7 +4,7 @@ class EventWorker
 
   def perform(link_hash)
     link = Link.find_by(link_hash: link_hash)
-    Ahoy::GeocodeJob.perform_now(link.visits.last.visit) if link.visits.last
+    Ahoy::GeocodeJob.perform_now(link.visits.last) if link.visits.last
     puts 'added location successfully'
   end
 end

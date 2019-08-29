@@ -9,4 +9,11 @@ class Link < ApplicationRecord
   def unique_visits
     visits.pluck(:ip).uniq
   end
+
+  def with_visit_stats
+    attributes.merge({
+        visits_number:         visits.count,
+        unique_visits_number:  unique_visits.count
+                     })
+  end
 end
