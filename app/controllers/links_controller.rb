@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class LinksController < ApplicationController
+  skip_before_action :track_ahoy_visit, only: %i[count_rows index]
+
   def index
     render json: Link.joins('left join ahoy_visits on links.link_hash = ahoy_visits.link_hash')
                      .select('links.*, count(ahoy_visits.ip) as visits_number, count(DISTINCT ahoy_visits.ip) as unique_visits_number')
@@ -17,6 +19,10 @@ class LinksController < ApplicationController
       link: "#{ENV['api_root']}/#{link.link_hash}",
       errors: link.errors
     }
+  end
+
+  def count_rows
+    render json: Link.all.count
   end
 
   def redirect

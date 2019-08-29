@@ -9,22 +9,20 @@ class Statistics extends React.Component {
     constructor(props) {
         super(props);
 
-        this.isRowLoaded = this.isRowLoaded.bind(this);
-        this.renderRow = this.renderRow.bind(this);
-        this.loadMoreRows = this.loadMoreRows.bind(this);
-
         this.cache = new CellMeasurerCache({
             fixedWidth: true,
             defaultHeight: 100
         });
         this.state = {
+            rowCount: 0,
             links: []
-        }
-    }
+        };
 
-    bindListRef = ref => {
-        this.list = ref;
-    };
+        this.isRowLoaded = this.isRowLoaded.bind(this);
+        this.renderRow = this.renderRow.bind(this);
+        this.loadMoreRows = this.loadMoreRows.bind(this);
+        this.setRowCount = this.setRowCount.bind(this);
+    }
 
     componentDidUpdate(prevProps, prevState, snapshot) {
         if (this.list) {
@@ -34,8 +32,19 @@ class Statistics extends React.Component {
     }
 
     componentDidMount() {
-        this.loadMoreRows({startIndex: 0, stopIndex: 10});
+        this.setRowCount()
+            .then(() => this.loadMoreRows({startIndex: 0, stopIndex: 10}))
     }
+
+    setRowCount = () => {
+        return fetch(`${API_ROOT}/links/statistics/count`)
+            .then(response => response.json())
+            .then(data => {
+                this.setState({
+                    rowCount: data
+                })
+            })
+    };
 
     renderRow = ({ index, key, style, parent }) => {
         return (
@@ -72,30 +81,32 @@ class Statistics extends React.Component {
         return (
             <div className='stats-window'>
                 <a style={{textAlign: 'center', margin: '10px'}}  href="/">back to shortener</a>
-                <InfiniteLoader
-                    isRowLoaded={this.isRowLoaded}
-                    loadMoreRows={this.loadMoreRows}
-                    rowCount={10000}
-                >
-                    {({ onRowsRendered, registerChild }) => (
-                        <AutoSizer>
-                            {
-                                ({ width, height }) => {
-                                    return <List
-                                        ref={registerChild}
-                                        width={width}
-                                        height={height}
-                                        onRowsRendered={onRowsRendered}
-                                        deferredMeasurementCache={this.cache}
-                                        rowHeight={this.cache.rowHeight}
-                                        rowRenderer={this.renderRow}
-                                        rowCount={this.state.links.length}
-                                        overscanRowCount={3} />
+                <div className="stat-list">
+                    <InfiniteLoader
+                        isRowLoaded={this.isRowLoaded}
+                        loadMoreRows={this.loadMoreRows}
+                        rowCount={this.state.rowCount}
+                    >
+                        {({ onRowsRendered, registerChild }) => (
+                            <AutoSizer>
+                                {
+                                    ({ width, height }) => {
+                                        return <List
+                                            ref={registerChild}
+                                            width={width}
+                                            height={height}
+                                            onRowsRendered={onRowsRendered}
+                                            deferredMeasurementCache={this.cache}
+                                            rowHeight={this.cache.rowHeight}
+                                            rowRenderer={this.renderRow}
+                                            rowCount={this.state.links.length}
+                                            overscanRowCount={3} />
+                                    }
                                 }
-                            }
-                        </AutoSizer>
-                    )}
-                </InfiniteLoader>,
+                            </AutoSizer>
+                        )}
+                    </InfiniteLoader>
+                </div>
             </div>
         )
     }
