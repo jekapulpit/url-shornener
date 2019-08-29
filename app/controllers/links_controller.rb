@@ -2,7 +2,10 @@
 
 class LinksController < ApplicationController
   def index
-    render json: Link.includes(:visits), each_serializer: LinkSerializer
+    render json: Link.joins('left join ahoy_visits on links.link_hash = ahoy_visits.link_hash')
+                     .select('links.*, count(ahoy_visits.ip) as visits_number, count(DISTINCT ahoy_visits.ip) as unique_visits_number')
+                     .group(:original_link, :link_hash, :created_at, :updated_at)
+                     .order('visits_number desc'), each_serializer: LinkSerializer
   end
 
   def create
