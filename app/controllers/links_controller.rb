@@ -4,12 +4,12 @@ class LinksController < ApplicationController
   skip_before_action :track_ahoy_visit, only: %i[count_rows index]
 
   def index
-    render json: Link.joins('left join ahoy_visits on links.link_hash = ahoy_visits.link_hash')
-                     .select('links.*, count(ahoy_visits.ip) as visits_number, count(DISTINCT ahoy_visits.ip) as unique_visits_number')
-                     .group(:original_link, :link_hash, :created_at, :updated_at)
-                     .order('visits_number desc')
-                     .limit(params[:stopIndex].to_i - params[:startIndex].to_i)
-                     .offset(params[:startIndex]), each_serializer: LinkSerializer
+    render json: Link.with_visit_stats
+                     .paginate(params[:startIndex].to_i, params[:stopIndex].to_i), each_serializer: LinkSerializer
+  end
+
+  def show
+    render json: Link.find(params[:link_hash]), serializer: LinkShowSerializer
   end
 
   def create

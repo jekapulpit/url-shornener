@@ -10,10 +10,24 @@ class Link < ApplicationRecord
     visits.pluck(:ip).uniq
   end
 
-  def with_visit_stats
+  def specific_visit_stats
     attributes.merge({
-        visits_number:         visits.count,
-        unique_visits_number:  unique_visits.count
+        visits_number: visits.length,
+        unique_visits_number: unique_visits.length
                      })
   end
+
+  def location_stats
+    visits
+        .select('ahoy_visits.country as country, count(ahoy_visits.id) as times_redirected')
+        .group(:country, :link_hash).order('times_redirected desc').limit(3)
+  end
+
+  scope :visits_left_join, -> { joins('left join ahoy_visits on links.link_hash = ahoy_visits.link_hash') }
+
+  scope :with_visit_stats, -> { visits_left_join
+                                     .select('links.*, count(ahoy_visits.ip) as visits_number, count(DISTINCT ahoy_visits.ip) as unique_visits_number')
+                                     .group(:original_link, :link_hash, :created_at, :updated_at)
+                                     .order('visits_number desc') }
+  scope :paginate, ->(start_index, end_index) { limit(end_index - start_index).offset(start_index) }
 end
