@@ -33,7 +33,7 @@ class Statistics extends React.Component {
 
     componentDidMount() {
         this.setRowCount()
-            .then(() => this.loadMoreRows({startIndex: 0, stopIndex: 10}))
+            .then(() => this.loadMoreRows({startIndex: 0, stopIndex: 30}))
     }
 
     setRowCount = () => {

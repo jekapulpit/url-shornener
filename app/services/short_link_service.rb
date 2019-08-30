@@ -10,7 +10,7 @@ class ShortLinkService
   end
 
   def call
-    if @link_instance.link_hash.nil?
+    if record_not_found?
       loop do
         set_link_hash
         break unless collision?
@@ -22,6 +22,10 @@ class ShortLinkService
   end
 
   private
+
+  def record_not_found?
+    @link_instance.link_hash.nil?
+  end
 
   def shuffle_original_link
     @original_link = @original_link.chars.shuffle.join
